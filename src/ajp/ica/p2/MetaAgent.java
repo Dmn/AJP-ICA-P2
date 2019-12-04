@@ -18,4 +18,9 @@ public class MetaAgent implements Runnable
     public void run() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    public synchronized void msgHandler(Message msg)
+    {
+        //Handle the messages.
+    }
 }

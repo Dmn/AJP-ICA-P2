@@ -1,21 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ajp.ica.p2;
 
-/**
- *
- * @author v8196566
- */
-public class AJPICAP2 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+public class AJPICAP2 
+{
+    public static void main(String[] args) 
+    {
+        /**
+         * TODO:
+         * 
+         * Implement MetaAgent, Agent, Portal and Message;
+         * Insert Unit tests for sending messages and then receiving messages;
+         * Implement Socket;
+         * Insert Unit tests for sending/receiving messages across Sockets.
+         */
+        
+        
+        /**
+         * In the future this will be where we demonstrate
+         * our user agent system functioning.
+         * 
+         * Example below:
+         */
+        
+        //Agent one = new Agent("Jason");
+        //Agent two = new Agent("Cristian");
+        //Portal portalOne = new Portal();
+        //portal.addAgent(one.getName(), one);
+        //portal.addAgent(two.getName(), two);
+        
+        //one.sendMessage(two, "Hello World");
+        
+        //Agent three = new Agent("Josh");
+        //Portal portalTwo = new Portal();
+        //portalTwo.addAgent(three.getName(), three);
+        
+        //Socket router = new Socket();
+        //router.addPortal(portalOne);
+        //router.addPortal(portalTwo);
+        
+        //three.sendMessage(one, "Communicating through socket");
+        //two.sendMessage(three, "Communicating through socket Part 2");
     }
-    
 }
