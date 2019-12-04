@@ -1,27 +1,21 @@
 package ajp.ica.p2;
 
-public class MetaAgent {
-    private String name;
-    private Portal p;
+import java.util.concurrent.BlockingQueue;
 
-    public MetaAgent(String name, Portal p) {
+public class MetaAgent implements Runnable
+{
+    private final BlockingQueue queue;
+    private final String name;
+    private final Portal portal;
+
+    public MetaAgent(String name, Portal portal, BlockingQueue queue) {
         this.name = name;
-        this.p = p;
+        this.portal = portal;
+        this.queue = queue;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Portal getPortal() {
-        return p;
-    }
-
-    public void setPortal(Portal p) {
-        this.p = p;
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
