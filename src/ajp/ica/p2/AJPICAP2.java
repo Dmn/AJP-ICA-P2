@@ -39,5 +39,10 @@ public class AJPICAP2
         
         //three.sendMessage(one, "Communicating through socket");
         //two.sendMessage(three, "Communicating through socket Part 2");
+        
+        /**
+         * Disclaimer: The method addAgent's parameters may not be correct,
+         * This was my interpretation of the BORIS implementations of that method.
+         */
     }
 }
