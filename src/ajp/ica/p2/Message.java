@@ -21,4 +21,8 @@ public class Message {
         return content;
     }
     
+    public String wrap(){
+       return (getSender()+"###"+getReceiver()+"###"+getContent());
+    }
+    
 }
