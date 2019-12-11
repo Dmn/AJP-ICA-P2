@@ -2,7 +2,7 @@ package ajp.ica.p2;
 
 import java.util.HashMap;
 
-public class Portal implements MetaAgent 
+public class Portal extends MetaAgent 
 {
     /**
      * The variable routing queue will be a HashMap mapping the
@@ -29,10 +29,9 @@ public class Portal implements MetaAgent
         this.portal = portal;
     }
     
-    @Override
     public void msgHandler(Message msg)
     {
-        
+        routing.get(msg.getReceiver());
     }
 
     /**
