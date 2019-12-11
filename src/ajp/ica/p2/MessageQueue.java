@@ -6,17 +6,17 @@ import java.util.concurrent.ExecutorService;
 
 public class MessageQueue extends ArrayBlockingQueue
 {
-    static MessageQueue msgQ = null;
+    private static MessageQueue msgQ = null;
     
-    private final Message msg;
-    MessageQueue(Message msg, int amt)
+    private MessageQueue()
     {
-        super(amt);
-        this.msg = msg;
+        super(100);
     }
     
-    static MessageQueue setMsgQ(MessageQueue msgQ)
+    public static MessageQueue getMsgQ()
     {
-        return null;
+        if (msgQ == null)
+            msgQ = new MessageQueue();
+        return msgQ;
     }
 }
