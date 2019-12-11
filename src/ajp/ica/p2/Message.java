@@ -1,12 +1,10 @@
 package ajp.ica.p2;
 
-import java.util.concurrent.ArrayBlockingQueue;
-
-public class Message extends ArrayBlockingQueue {
+public class Message 
+{
     final private String sender, receiver, content;
 
     public Message(String sender, String receiver, String content) {
-        super(10);
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
