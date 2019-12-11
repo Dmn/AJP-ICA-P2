@@ -17,7 +17,8 @@ public class UserAgent implements MetaAgent {
     
     public void setPortal(Portal p)
     {
-        //TODO
+        this.portal = p;
+        p.addAgent(this);
     }
 
     @Override

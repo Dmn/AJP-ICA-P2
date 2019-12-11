@@ -21,11 +21,11 @@ public class AJPICAP2
          * Example below:
          */
         
-        //Agent one = new Agent("Jason");
-        //Agent two = new Agent("Cristian");
-        //Portal portalOne = new Portal();
-        //portal.addAgent(one.getName(), one);
-        //portal.addAgent(two.getName(), two);
+        UserAgent one = new UserAgent("Jason");
+        UserAgent two = new UserAgent("Cristian");
+        Portal portalOne = new Portal("p1", null);
+        portalOne.addAgent(one);
+        portalOne.addAgent(two);
         
         //one.sendMessage(two, "Hello World");
         

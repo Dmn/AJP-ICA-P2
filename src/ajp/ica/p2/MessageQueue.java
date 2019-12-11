@@ -4,7 +4,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
 
 
-public class MessageQueue extends ArrayBlockingQueue
+public class MessageQueue extends ArrayBlockingQueue implements Runnable
 {
     private static MessageQueue msgQ = null;
     
@@ -13,10 +13,15 @@ public class MessageQueue extends ArrayBlockingQueue
         super(100);
     }
     
-    public static MessageQueue getMsgQ()
-    {
-        if (msgQ == null)
-            msgQ = new MessageQueue();
-        return msgQ;
+//    public static MessageQueue getMsgQ()
+//    {
+//        if (msgQ == null)
+//            msgQ = new MessageQueue();
+//        return msgQ;
+//    }
+
+    @Override
+    public void run() {
+        
     }
 }
