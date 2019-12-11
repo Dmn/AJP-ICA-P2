@@ -3,6 +3,7 @@ package ajp.ica.p2;
 public class UserAgent implements MetaAgent {
 
     private final String name;
+    private Portal portal;
 
     public UserAgent(String name)
     {
@@ -14,6 +15,11 @@ public class UserAgent implements MetaAgent {
         return name;
     }
     
+    public void setPortal(Portal p)
+    {
+        //TODO
+    }
+
     @Override
     public void msgHandler(Message msg) 
     {
