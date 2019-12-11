@@ -10,16 +10,23 @@ public class MetaAgent extends ArrayBlockingQueue<Message> implements Runnable
     private Thread thread;
     private volatile boolean run;
     
-    public MetaAgent()
+    private MetaAgent()
     {
         super(100);
     }
     
-    private void start()
+    public MetaAgent(String name, Portal portal)
     {
-        thread = new Thread(this);
-        thread.start();
+        super(100);
+        this.name = name;
+        this.portal = portal;
     }
+//    
+//    private void start()
+//    {
+//        thread = new Thread(this);
+//        thread.start();
+//    }
 
     @Override
     public void run() {

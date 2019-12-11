@@ -2,12 +2,9 @@ package ajp.ica.p2;
 
 public class UserAgent extends MetaAgent {
 
-    private final String name;
-    private Portal portal;
-
     public UserAgent(String name)
     {
-        this.name = name;
+        super(name, null);
     }
     
     public String getName() 
@@ -21,6 +18,7 @@ public class UserAgent extends MetaAgent {
         p.addAgent(this);
     }
 
+    @Override
     public void msgHandler(Message msg) 
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

@@ -13,12 +13,12 @@ public class MessageQueue extends ArrayBlockingQueue implements Runnable
         super(100);
     }
     
-//    public static MessageQueue getMsgQ()
-//    {
-//        if (msgQ == null)
-//            msgQ = new MessageQueue();
-//        return msgQ;
-//    }
+    public static MessageQueue getMsgQ()
+    {
+        if (msgQ == null)
+            msgQ = new MessageQueue();
+        return msgQ;
+    }
 
     @Override
     public void run() {

@@ -9,16 +9,9 @@ public class Portal extends MetaAgent
      * agent names to their blocking queue.
      */
     HashMap<String, UserAgent> routing = new HashMap<>();
-    private final String name;
-    private Portal portal;
 
     public Portal(String name, Portal portal) {
-        this.name = name;
-        this.portal = portal;
-    }
-    
-    public Portal (String name){
-        this.name = name;
+        super(name, portal);
     }
 
     public Portal getPortal() {

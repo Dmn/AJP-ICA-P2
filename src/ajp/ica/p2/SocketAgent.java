@@ -4,7 +4,8 @@ import java.util.concurrent.BlockingQueue;
 
 public class SocketAgent extends MetaAgent{
     
-    public SocketAgent(String name, Portal portal, BlockingQueue queue) {
+    public SocketAgent(String name, Portal portal) {
+        super(name, portal);
         //super(name, portal, queue);
     }
 
