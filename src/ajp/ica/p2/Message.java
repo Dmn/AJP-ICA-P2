@@ -1,9 +1,12 @@
 package ajp.ica.p2;
 
-public class Message {
+import java.util.concurrent.ArrayBlockingQueue;
+
+public class Message extends ArrayBlockingQueue {
     final private String sender, receiver, content;
 
     public Message(String sender, String receiver, String content) {
+        super(10);
         this.sender = sender;
         this.receiver = receiver;
         this.content = content;
@@ -23,6 +26,5 @@ public class Message {
     
     public String wrap(){
        return (getSender()+"###"+getReceiver()+"###"+getContent());
-    }
-    
+    }   
 }

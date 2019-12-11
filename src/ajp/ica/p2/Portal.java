@@ -1,35 +1,34 @@
 package ajp.ica.p2;
 
 import java.util.HashMap;
-import java.util.concurrent.BlockingQueue;
 
-public class Portal extends MetaAgent {
-    
-    private HashMap<String, Agent> routingTable;
-
-    public Portal(String name, Portal portal, BlockingQueue queue) {
-        super(name, portal, queue);
-    }
-
-    public HashMap<String, Agent> getRoutingTable() {
-        return routingTable;
-    }
-
-    public void setRoutingTable(HashMap<String, Agent> routingTable) {
-        this.routingTable = routingTable;
-    }
-   
+public class Portal implements MetaAgent 
+{
     /**
      * The variable routing queue will be a HashMap mapping the
      * agent names to their blocking queue.
      */
-    HashMap<Agent,BlockingQueue> map = new HashMap<>(
+    HashMap<String, UserAgent> routing = new HashMap<>();
+    private final String name;
+    private Portal portal;
+
+    public Portal(String name, Portal portal) {
+        this.name = name;
+        this.portal = portal;
+    }
     
-    );
-    
-    public void RouteTableAdd(Agent agent){
-        HashMap<String, Agent> route= getRoutingTable();
-        route.put(agent.getName(), agent);
-        setRoutingTable(route);
+    @Override
+    public void msgHandler(Message msg)
+    {
+        
+    }
+
+    /**
+     * Adds UserAgents to the Portals routing table.
+     * @param agent UserAgent being passed in. Allows adding to the routing table.
+     */
+    public void addAgent(UserAgent agent)
+    {
+        routing.put(agent.getName(), agent);
     }
 }
