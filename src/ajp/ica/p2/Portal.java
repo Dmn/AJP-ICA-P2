@@ -17,6 +17,18 @@ public class Portal implements MetaAgent
         this.portal = portal;
     }
     
+    public Portal (String name){
+        this.name = name;
+    }
+
+    public Portal getPortal() {
+        return portal;
+    }
+
+    public void setPortal(Portal portal) {
+        this.portal = portal;
+    }
+    
     @Override
     public void msgHandler(Message msg)
     {

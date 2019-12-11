@@ -2,9 +2,9 @@ package ajp.ica.p2;
 
 import java.util.concurrent.BlockingQueue;
 
-public class Socket implements MetaAgent{
+public class SocketAgent implements MetaAgent{
     
-    public Socket(String name, Portal portal, BlockingQueue queue) {
+    public SocketAgent(String name, Portal portal, BlockingQueue queue) {
         //super(name, portal, queue);
     }
 
