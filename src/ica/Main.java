@@ -31,11 +31,11 @@ public class Main {
         System.out.println("Testing adding Portals to new portals.");
         Portal portalTwo = new Portal ("P2", portal);
 
-        System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.getRoutingTable().keySet());
+        System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.routingTableToString());
 
         UserAgent three = new UserAgent("Joshua", portalTwo);
 
-        System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.getRoutingTable().keySet());
+        System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 
         //one.sendMessage(two, "Hello World");
 

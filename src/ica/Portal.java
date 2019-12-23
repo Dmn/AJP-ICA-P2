@@ -29,6 +29,10 @@ public class Portal extends MetaAgent {
         return routing;
     }
 
+    public String routingTableToString() {
+        return routing.keySet().toString();
+    }
+
     public void setRoutingTable(HashMap<String, UserAgent> routing) {
         this.routing = routing;
     }
@@ -50,6 +54,9 @@ public class Portal extends MetaAgent {
 
 
     public void setPortal(Portal portal) {
+        /**
+         * TODO: add syncing the routing tables when new portal is added.
+         */
         this.portal = portal;
     }
 
