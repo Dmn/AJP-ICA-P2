@@ -37,6 +37,10 @@ public class Portal extends MetaAgent {
         this.routing = routing;
     }
 
+    private void setPortal(Portal portal) {
+        this.portal = portal;
+    }
+
     public UserAgent getKeyAgent(String key)
     {
         if (routing.containsKey(key))
@@ -53,11 +57,24 @@ public class Portal extends MetaAgent {
      }
 
 
-    public void setPortal(Portal portal) {
+    public void addPortal(Portal portal) {
         /**
          * TODO: add syncing the routing tables when new portal is added.
          */
-        this.portal = portal;
+        if (this.portal != null) {
+            /**
+             * TODO: Add functionality to sync all the portals.
+             * We will enter this statement if there exists more than two portals.
+             * We would need to reconnect all the portals to form a triangle or larger.
+             */
+        }
+        else
+        {
+            this.portal = portal;
+            sync(this.portal);
+            portal.setPortal(this);
+        }
+
     }
 
     public void msgHandler(Message msg) {
