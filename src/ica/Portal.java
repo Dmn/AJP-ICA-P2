@@ -85,14 +85,24 @@ public class Portal extends MetaAgent {
      * Adds UserAgents to the Portals routing table.
      * @param agent UserAgent being passed in. Allows adding to the routing table.
      */
-    public void addAgent(UserAgent agent) {
+    public boolean addAgent(UserAgent agent) {
         if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
             routing.put(agent.getName(), agent);
+            if (this.portal != null)
+                sync(this.portal);
+            return true;
         }
-        if (this.portal != null)
-        {
-            sync(this.portal);
+        return false;
+    }
+
+    public boolean removeAgent(UserAgent agent) {
+        if (routing.containsValue(agent) && agent.getPortal() == this) {
+            routing.remove(agent.getName());
+            if (this.portal != null)
+                sync(this.portal);
+            return true;
         }
+        return false;
     }
 
 
