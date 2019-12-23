@@ -1,9 +1,7 @@
-package ajp.ica.p2;
-
+package ica;
 import java.util.HashMap;
 
-public class Portal extends MetaAgent 
-{
+public class Portal extends MetaAgent {
     /**
      * The variable routing queue will be a HashMap mapping the
      * agent names to their blocking queue.
@@ -18,12 +16,18 @@ public class Portal extends MetaAgent
         return portal;
     }
 
+    public UserAgent getKeyAgent(String key)
+    {
+        if (routing.containsKey(key))
+            return routing.get(key);
+        return null;
+    }
+
     public void setPortal(Portal portal) {
         this.portal = portal;
     }
-    
-    public void msgHandler(Message msg)
-    {
+
+    public void msgHandler(Message msg) {
         routing.get(msg.getReceiver());
     }
 
@@ -31,8 +35,12 @@ public class Portal extends MetaAgent
      * Adds UserAgents to the Portals routing table.
      * @param agent UserAgent being passed in. Allows adding to the routing table.
      */
-    public void addAgent(UserAgent agent)
-    {
-        routing.put(agent.getName(), agent);
+    public void addAgent(UserAgent agent) {
+        if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
+            routing.put(agent.getName(), agent);
+        }
     }
+
+
+    // ABOVE WE HAVE ADD AGENT, HERE WE COULD ALSO HAVE REMOVE AGENT, ADD MONITOR, REMOVE MONITOR...ETC.
 }
