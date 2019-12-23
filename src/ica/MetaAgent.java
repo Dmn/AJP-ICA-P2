@@ -9,21 +9,6 @@ public class MetaAgent extends ArrayBlockingQueue<Message> implements Runnable {
     private Thread thread;
     private volatile boolean run;
 
-    private MetaAgent() {
-        super(100);
-    }
-
-
-    // I belive the MetaAgent needs to have name so we could use this.
-    public void setName(String metaName) {
-        name = metaName;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-
     public MetaAgent(String name, Portal portal) {
         super(100);
         this.name = name;
@@ -69,5 +54,18 @@ public class MetaAgent extends ArrayBlockingQueue<Message> implements Runnable {
         //BlockingQueue q= r.getQueue();
         //q.add(msg);
         //r.setQueue(q);
+    }
+
+    // I belive the MetaAgent needs to have name so we could use this.
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Portal getPortal() {
+        return portal;
     }
 }

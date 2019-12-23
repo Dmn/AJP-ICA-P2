@@ -3,44 +3,69 @@ import java.util.HashMap;
 
 public class Portal extends MetaAgent {
     /**
-     * The variable routing queue will be a HashMap mapping the
-     * agent names to their blocking queue.
+     * Hashmap containing:
+     * <String> key (UserAgent name)
+     * <UserAgent> Value (UserAgent object)
      */
-    private HashMap<String, UserAgent> routing = new HashMap<>();
+    private HashMap<String, UserAgent> routing;
 
+    /**
+     * Constructor for Portal which calls its superclass MetaAgent.
+     * @param name Name of the Portal.
+     * @param portal A Portal this Portal is connected to.
+     */
     public Portal(String name, Portal portal) {
         super(name, portal);
         this.name = name;
         this.portal = portal;
+        routing = new HashMap<>();
 
+        //Can be connected to another portal. This connects the portals routing table to this one.
         if (portal != null)
             routing = portal.getRoutingTable();
     }
 
-    public Portal getPortal() {
-        return portal;
-    }
-
-    public String getName() {
-        return name;
-    }
-
+    /**
+     * Accessor method for the routing table instance variable.
+     * @return Returns the entire routing table.
+     */
     public HashMap<String, UserAgent> getRoutingTable() {
         return routing;
     }
 
+    /**
+     * Accessor method for the routing table instance variable toString method.
+     * Makes grabbing a set out of the routing table easier outside of the class.
+     * @return A formatted string of the keys contained in the routing table.
+     */
     public String routingTableToString() {
         return routing.keySet().toString();
     }
 
+    /**
+     * Mutator method for the instance variable routing table.
+     * Only triggered when synchronizing routing tables.
+     * @param routing HashMap routing table containing <String> name and <UserAgent> routing.
+     */
     public void setRoutingTable(HashMap<String, UserAgent> routing) {
         this.routing = routing;
     }
 
+    /**
+     * Mutator method for the instance variable portal.
+     * Only accessible in class. This is purely used in method addPortal.
+     * @param portal Portal for this instance of Portal to connect to.
+     */
     private void setPortal(Portal portal) {
         this.portal = portal;
     }
 
+    /**
+     * Accessor method to obtain UserAgent value from a Key.
+     * Makes obtaining Values from keys easier outside of Class.
+     * @param key A String key to obtain a UserAgent out of the routing table.
+     * @return Returns the UserAgent obtained from the Routing table.
+     */
     public UserAgent getKeyAgent(String key)
     {
         if (routing.containsKey(key))
@@ -48,7 +73,11 @@ public class Portal extends MetaAgent {
         return null;
     }
 
-
+    /**
+     * This method synchronises the routing tables of this to the connected portals.
+     * This happens if there is a new Agent in any of the connected portals or if there is one removed.
+     * @param portal Portal that needs their routing table to be updated.
+     */
     public void sync(Portal portal) {
         HashMap<String, UserAgent> newRoutingTable = new HashMap<>();
         newRoutingTable.putAll(this.routing);
@@ -56,7 +85,11 @@ public class Portal extends MetaAgent {
         portal.setRoutingTable(newRoutingTable);
      }
 
-
+    /**
+     * Connects this instance of Portal to another.
+     * This functions differently when there is already a connected portal in the "portal" instance variable.
+     * @param portal Portal to connect to this instance of Portal.
+     */
     public void addPortal(Portal portal) {
         /**
          * TODO: add syncing the routing tables when new portal is added.
@@ -77,6 +110,10 @@ public class Portal extends MetaAgent {
 
     }
 
+    /**
+     * Routes messages being sent from one UserAgent to the receiving UserAgent.
+     * @param msg Message contains the Content, Sender and Receiver of the message.
+     */
     public void msgHandler(Message msg) {
         routing.get(msg.getReceiver());
     }
@@ -84,6 +121,7 @@ public class Portal extends MetaAgent {
     /**
      * Adds UserAgents to the Portals routing table.
      * @param agent UserAgent being passed in. Allows adding to the routing table.
+     * @return True/False if the UserAgent was successfully added.
      */
     public boolean addAgent(UserAgent agent) {
         if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
@@ -95,6 +133,11 @@ public class Portal extends MetaAgent {
         return false;
     }
 
+    /**
+     * Removes UserAgents from the Portals routing table.
+     * @param agent UserAgent being passed in. Allows removing from the routing table.
+     * @return True/False if the UserAgent was successfully removed.
+     */
     public boolean removeAgent(UserAgent agent) {
         if (routing.containsValue(agent) && agent.getPortal() == this) {
             routing.remove(agent.getName());
@@ -104,7 +147,4 @@ public class Portal extends MetaAgent {
         }
         return false;
     }
-
-
-    // ABOVE WE HAVE ADD AGENT, HERE WE COULD ALSO HAVE REMOVE AGENT, ADD MONITOR, REMOVE MONITOR...ETC.
 }
