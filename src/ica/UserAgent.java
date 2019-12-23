@@ -6,6 +6,7 @@ public class UserAgent extends MetaAgent {
     public UserAgent(String name, Portal portal)
     {
         super(name, portal);
+        this.name = name;
         this.portal = portal;
     }
 
@@ -24,4 +25,8 @@ public class UserAgent extends MetaAgent {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public String toString() {
+        return "Name: " + name + " | Portal: " + portal.getName() + "\n";
+    }
 }

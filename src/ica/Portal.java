@@ -6,14 +6,20 @@ public class Portal extends MetaAgent {
      * The variable routing queue will be a HashMap mapping the
      * agent names to their blocking queue.
      */
-    HashMap<String, UserAgent> routing = new HashMap<>();
+    private HashMap<String, UserAgent> routing = new HashMap<>();
 
     public Portal(String name, Portal portal) {
         super(name, portal);
+        this.name = name;
+        this.portal = portal;
     }
 
     public Portal getPortal() {
         return portal;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public UserAgent getKeyAgent(String key)

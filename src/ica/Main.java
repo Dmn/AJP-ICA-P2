@@ -18,14 +18,15 @@ public class Main {
          * Example below:
          */
 
-        Portal portalOne = new Portal("p1", null);
-        UserAgent one = new UserAgent("Jason", portalOne);
-        UserAgent two = new UserAgent("Cristian", portalOne);
+        Portal portal = new Portal("P1", null);
+        UserAgent one = new UserAgent("Jason", portal);
+        UserAgent two = new UserAgent("Cristian", portal);
 
-        portalOne.addAgent(one);
-        portalOne.addAgent(two);
+        portal.addAgent(one);
+        portal.addAgent(two);
 
-        System.out.println("hello");
+        System.out.printf("%s", one.toString());
+        System.out.printf("%s", portal.getKeyAgent("Jason").getName());
 
         //one.sendMessage(two, "Hello World");
 
@@ -54,8 +55,8 @@ public class Main {
 
          for(int i = 0; i < 40; i++)
          {
-         msgQ.add(new Message("Hello " + i));
-         Thread.sleep(100);
+            msgQ.add(new Message("Hello " + i));
+            Thread.sleep(100);
          }
 
          msgQ.stop();
