@@ -8,6 +8,8 @@ public class UserAgent extends MetaAgent {
         super(name, portal);
         this.name = name;
         this.portal = portal;
+
+        this.portal.addAgent(this);
     }
 
     public String getName()
@@ -27,6 +29,6 @@ public class UserAgent extends MetaAgent {
 
     @Override
     public String toString() {
-        return "Name: " + name + " | Portal: " + portal.getName() + "\n";
+        return "Name: " + name + " | Portal: " + portal.getName();
     }
 }

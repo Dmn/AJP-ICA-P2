@@ -18,15 +18,24 @@ public class Main {
          * Example below:
          */
 
+        System.out.println("Testing adding Agents to one portal.");
         Portal portal = new Portal("P1", null);
         UserAgent one = new UserAgent("Jason", portal);
         UserAgent two = new UserAgent("Cristian", portal);
 
-        portal.addAgent(one);
-        portal.addAgent(two);
 
-        System.out.printf("%s", one.toString());
-        System.out.printf("%s", portal.getKeyAgent("Jason").getName());
+        System.out.printf("Testing UserAgent: %s\n", one.toString());
+        System.out.printf("Testing if Agent added to Routing table: %s\n", portal.getKeyAgent("Jason").getName());
+        System.out.println("_______\n");
+
+        System.out.println("Testing adding Portals to new portals.");
+        Portal portalTwo = new Portal ("P2", portal);
+
+        System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.getRoutingTable().keySet());
+
+        UserAgent three = new UserAgent("Joshua", portalTwo);
+
+        System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.getRoutingTable().keySet());
 
         //one.sendMessage(two, "Hello World");
 

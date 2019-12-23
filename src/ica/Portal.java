@@ -12,6 +12,9 @@ public class Portal extends MetaAgent {
         super(name, portal);
         this.name = name;
         this.portal = portal;
+
+        if (portal != null)
+            routing = portal.getRoutingTable();
     }
 
     public Portal getPortal() {
@@ -22,12 +25,29 @@ public class Portal extends MetaAgent {
         return name;
     }
 
+    public HashMap<String, UserAgent> getRoutingTable() {
+        return routing;
+    }
+
+    public void setRoutingTable(HashMap<String, UserAgent> routing) {
+        this.routing = routing;
+    }
+
     public UserAgent getKeyAgent(String key)
     {
         if (routing.containsKey(key))
             return routing.get(key);
         return null;
     }
+
+
+    public void sync(Portal portal) {
+        HashMap<String, UserAgent> newRoutingTable = new HashMap<>();
+        newRoutingTable.putAll(this.routing);
+        newRoutingTable.putAll(portal.getRoutingTable());
+        portal.setRoutingTable(newRoutingTable);
+     }
+
 
     public void setPortal(Portal portal) {
         this.portal = portal;
@@ -44,6 +64,10 @@ public class Portal extends MetaAgent {
     public void addAgent(UserAgent agent) {
         if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
             routing.put(agent.getName(), agent);
+        }
+        if (this.portal != null)
+        {
+            sync(this.portal);
         }
     }
 
