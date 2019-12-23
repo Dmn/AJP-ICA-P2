@@ -19,6 +19,7 @@ public class Main {
          */
 
         System.out.println("Testing adding Agents to one portal.");
+
         Portal portal = new Portal("P1", null);
         UserAgent one = new UserAgent("Jason", portal);
         UserAgent two = new UserAgent("Cristian", portal);
@@ -29,6 +30,7 @@ public class Main {
         System.out.println("_______\n");
 
         System.out.println("Testing adding Portals to new portals.");
+
         Portal portalTwo = new Portal ("P2", portal);
 
         System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.routingTableToString());
