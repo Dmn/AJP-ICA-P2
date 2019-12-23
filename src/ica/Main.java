@@ -24,7 +24,10 @@ public class Main {
         UserAgent one = new UserAgent("Jason", portal);
         UserAgent two = new UserAgent("Cristian", portal);
 
-
+        //adding agents to the portal.
+        portal.addAgent(one);
+        portal.addAgent(two);
+        
         System.out.printf("Testing UserAgent: %s\n", one.toString());
         System.out.printf("Testing if Agent added to Routing table: %s\n", portal.getKeyAgent("Jason").getName());
         System.out.println("_______\n");
