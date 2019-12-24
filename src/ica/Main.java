@@ -30,17 +30,19 @@ public class Main {
 
         System.out.println("Testing adding Portals to new portals.");
 
-        Portal portalTwo = new Portal ("P2", portal);
+        Portal portalTwo = new Portal("P2", portal);
 
         System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.routingTableToString());
 
         UserAgent three = new UserAgent("Joshua", portalTwo);
+        
+        //portalTwo.addPortal(portal);
 
         System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 
         /** Removing an agent requires you to null the agent outside of the Portal. */
-        portalTwo.removeAgent(three);
-        three = null;
+        //portalTwo.removeAgent(three);
+        //three = null;
 
 
         //one.sendMessage(two, "Hello World");

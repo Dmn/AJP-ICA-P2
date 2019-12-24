@@ -76,10 +76,11 @@ public class Portal extends MetaAgent {
      * This happens if there is a new Agent in any of the connected portals or if there is one removed.
      * @param portal Portal that needs their routing table to be updated.
      */
-    public void sync(Portal portal) {
+    private void sync(Portal portal) {
         HashMap<String, UserAgent> newRoutingTable = new HashMap<>();
         newRoutingTable.putAll(this.routing);
         newRoutingTable.putAll(portal.getRoutingTable());
+        this.routing = newRoutingTable;
         portal.setRoutingTable(newRoutingTable);
      }
 
@@ -112,6 +113,7 @@ public class Portal extends MetaAgent {
      * Routes messages being sent from one UserAgent to the receiving UserAgent.
      * @param msg Message contains the Content, Sender and Receiver of the message.
      */
+    @Override
     public void msgHandler(Message msg) {
         routing.get(msg.getReceiver());
     }
