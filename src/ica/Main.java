@@ -41,8 +41,8 @@ public class Main {
         System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 
         /** Removing an agent requires you to null the agent outside of the Portal. */
-        //portalTwo.removeAgent(three);
-        //three = null;
+        portalTwo.removeAgent(three);
+        three = null;
 
 
         //one.sendMessage(two, "Hello World");
