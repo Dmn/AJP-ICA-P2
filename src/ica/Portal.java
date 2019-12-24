@@ -12,12 +12,10 @@ public class Portal extends MetaAgent {
     /**
      * Constructor for Portal which calls its superclass MetaAgent.
      * @param name Name of the Portal.
-     * @param portal A Portal this Portal is connected to.
+     * @param portal A Portal this instance of Portal is connected to.
      */
     public Portal(String name, Portal portal) {
         super(name, portal);
-        this.name = name;
-        this.portal = portal;
         routing = new HashMap<>();
 
         //Can be connected to another portal. This connects the portals routing table to this one.
