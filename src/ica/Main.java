@@ -10,7 +10,6 @@ public class Main {
          * Insert Unit tests for sending/receiving messages across Sockets.
          */
 
-
         /**
          * In the future this will be where we demonstrate
          * our user agent system functioning.
