@@ -7,26 +7,28 @@ import java.util.logging.Logger;
 
 public class MessageQueue extends ArrayBlockingQueue<Message> implements Runnable
 {
-    private final String name;
+    private static MessageQueue msgQ;
+    //private final String name;
     private Thread thread;
     private volatile boolean run;
 
 
-    public MessageQueue(String name, int run)
+    private MessageQueue()
     {
         super(100);
-        this.name = name;
-        this.run = true;
+        //this.name = name;
+        //this.run = true;
 
         start();
     }
 
-//    public static MessageQueue getMsgQ(String name)
-//    {
-//        if (msgQ == null)
-//            msgQ = new MessageQueue();
-//        return msgQ;
-//    }
+    public static MessageQueue makeMsgQ()
+    {
+        if (msgQ == null)
+            return msgQ = new MessageQueue();
+        return msgQ;
+    }
+
 
     private void start()
     {
@@ -58,8 +60,9 @@ public class MessageQueue extends ArrayBlockingQueue<Message> implements Runnabl
         }
 
     }
+
     public void msgHandler(Message msg)
     {
-        System.out.println(this.name + ": " + msg.getContent());
+        System.out.println(": " + msg.getContent());
     }
 }
