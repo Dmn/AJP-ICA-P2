@@ -56,15 +56,18 @@ public class MetaAgent extends ArrayBlockingQueue<Message> implements Runnable {
         //r.setQueue(q);
     }
 
-    // I belive the MetaAgent needs to have name so we could use this.
-    public void setName(String name) {
-        this.name = name;
-    }
-
+    /**
+     * Accessor method for the name instance variable. Returns name of the Agent.
+     * @return Name of the Agent in a String type.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Accessor method for the portal instance variable. Returns portals connected to the current Portal.
+     * @return The portal the current instance of Portal is connected to.
+     */
     public Portal getPortal() {
         return portal;
     }
