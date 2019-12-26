@@ -20,7 +20,11 @@ public class Portal extends MetaAgent {
 
         //Can be connected to another portal. This connects the portals routing table to this one.
         if (portal != null)
+        {
+            portal.setPortal(this);
             routing = portal.getRoutingTable();
+        }
+
     }
 
     /**
@@ -74,15 +78,24 @@ public class Portal extends MetaAgent {
     /**
      * This method synchronises the routing tables of this to the connected portals.
      * This happens if there is a new Agent in any of the connected portals or if there is one removed.
-     * @param portal Portal that needs their routing table to be updated.
+     * @param p Portal that needs their routing table to be updated.
      */
-    private void sync(Portal portal) {
-        HashMap<String, UserAgent> newRoutingTable = new HashMap<>();
-        newRoutingTable.putAll(this.routing);
-        newRoutingTable.putAll(portal.getRoutingTable());
-        this.routing = newRoutingTable;
-        portal.setRoutingTable(newRoutingTable);
-     }
+    private void sync(Portal p, UserAgent a) {
+        if (p.portal != this) {
+            HashMap<String, UserAgent> newRoutingTable = new HashMap<>();
+            newRoutingTable.putAll(p.routing);
+            if (a == null) {
+                newRoutingTable.putAll(p.portal.getRoutingTable());
+                p.routing = newRoutingTable;
+                p.portal.setRoutingTable(newRoutingTable);
+                sync(p.portal, null);
+            }
+            else if (a != null) {
+                p.portal.setRoutingTable(newRoutingTable);
+                sync(p.portal, a);
+            }
+        }
+    }
 
     /**
      * Connects this instance of Portal to another.
@@ -90,23 +103,18 @@ public class Portal extends MetaAgent {
      * @param portal Portal to connect to this instance of Portal.
      */
     public void addPortal(Portal portal) {
-        /**
-         * TODO: add syncing the routing tables when new portal is added.
-         */
         if (this.portal != null) {
-            /**
-             * TODO: Add functionality to sync all the portals.
-             * We will enter this statement if there exists more than two portals.
-             * We would need to reconnect all the portals to form a triangle or larger.
-             */
+            Portal temp = this.portal; //P1 portal = P2
+            this.portal = portal; //this.portal = P3
+            portal.portal = temp; //P3 portal = P1
+            sync(this, null);
         }
         else
         {
             this.portal = portal;
-            sync(this.portal);
+            sync(this, null);
             portal.setPortal(this);
         }
-
     }
 
     /**
@@ -127,7 +135,7 @@ public class Portal extends MetaAgent {
         if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
             routing.put(agent.getName(), agent);
             if (portal != null)
-                sync(portal);
+                sync(this, null);
             return true;
         }
         return false;
@@ -142,7 +150,7 @@ public class Portal extends MetaAgent {
         if (routing.containsValue(agent) && agent.getPortal() == this) {
             routing.remove(agent.getName());
             if (portal != null)
-                sync(portal);
+                sync(this, agent);
             return null;
         }
         return agent;
