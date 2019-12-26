@@ -43,7 +43,14 @@ public class Main {
         three = portalTwo.removeAgent(three);
 
         /** Code below should produce a NullPointerException because we null the UserAgent "three". */
-        //System.out.printf("%s", three.toString());
+        try {
+            System.out.printf("%s", three.toString());
+        } catch (NullPointerException ex) {
+            System.out.println("This UserAgent does not exist.");
+        }
+
+        System.out.printf("New Routing table: %s", portalTwo.routingTableToString());
+
 
         //one.sendMessage(two, "Hello World");
 
