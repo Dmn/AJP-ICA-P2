@@ -29,15 +29,14 @@ public class Main {
 
         System.out.println("Testing adding Portals to new portals.");
 
-        Portal portalTwo = new Portal("P2", portal);
+        Portal portalTwo = new Portal("P2", null);
+        portalTwo.addPortal(portal);
 
         System.out.printf("Portal one is connect to: %s\n", portal.getPortal().getName());
 
         System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.routingTableToString());
 
         UserAgent three = new UserAgent("Joshua", portalTwo);
-        
-        //portalTwo.addPortal(portal);
 
         System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 

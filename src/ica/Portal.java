@@ -112,8 +112,8 @@ public class Portal extends MetaAgent {
         else
         {
             this.portal = portal;
+            portal.portal = this;
             sync(this, null);
-            portal.setPortal(this);
         }
     }
 

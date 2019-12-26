@@ -138,8 +138,8 @@ public class PortalTest {
         System.out.println("removeAgent");
         Portal instance = new Portal("P1", null);
         UserAgent agent = new UserAgent("Jason", instance);
-        boolean expResult = true;
-        boolean result = instance.removeAgent(agent);
+        UserAgent expResult = null;
+        UserAgent result = instance.removeAgent(agent);
         assertEquals(expResult, result);
     }
     
