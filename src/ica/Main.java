@@ -4,7 +4,7 @@ public class Main {
         /**
          * TODO:
          *
-         * Implement MetaAgent, Agent, Portal and Message;
+         * Implement MetaAgent, UserAgent, Portal;
          * Insert Unit tests for sending messages and then receiving messages;
          * Implement Socket;
          * Insert Unit tests for sending/receiving messages across Sockets.
