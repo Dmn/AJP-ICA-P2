@@ -126,8 +126,8 @@ public class Portal extends MetaAgent {
     public boolean addAgent(UserAgent agent) {
         if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
             routing.put(agent.getName(), agent);
-            if (this.portal != null)
-                sync(this.portal);
+            if (portal != null)
+                sync(portal);
             return true;
         }
         return false;
@@ -136,13 +136,13 @@ public class Portal extends MetaAgent {
     /**
      * Removes UserAgents from the Portals routing table.
      * @param agent UserAgent being passed in. Allows removing from the routing table.
-     * @return True/False if the UserAgent was successfully removed.
+     * @return Returns null if UserAgent was removed and this value is assigned to the UserAgent itself. Or returns itself if fails.
      */
     public UserAgent removeAgent(UserAgent agent) {
         if (routing.containsValue(agent) && agent.getPortal() == this) {
             routing.remove(agent.getName());
-            if (this.portal != null)
-                sync(this.portal);
+            if (portal != null)
+                sync(portal);
             return null;
         }
         return agent;
