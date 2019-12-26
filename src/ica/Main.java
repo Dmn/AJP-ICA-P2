@@ -39,10 +39,11 @@ public class Main {
 
         System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 
-        /** Removing an agent requires you to null the agent outside of the Portal. */
-        portalTwo.removeAgent(three);
-        three = null;
+        /** Removing an agent requires you to make method removeAgent return null if it succeeds or return agent. */
+        three = portalTwo.removeAgent(three);
 
+        /** Code below should produce a NullPointerException because we null the UserAgent "three". */
+        //System.out.printf("%s", three.toString());
 
         //one.sendMessage(two, "Hello World");
 

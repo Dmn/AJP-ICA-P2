@@ -138,13 +138,13 @@ public class Portal extends MetaAgent {
      * @param agent UserAgent being passed in. Allows removing from the routing table.
      * @return True/False if the UserAgent was successfully removed.
      */
-    public boolean removeAgent(UserAgent agent) {
+    public UserAgent removeAgent(UserAgent agent) {
         if (routing.containsValue(agent) && agent.getPortal() == this) {
             routing.remove(agent.getName());
             if (this.portal != null)
                 sync(this.portal);
-            return true;
+            return null;
         }
-        return false;
+        return agent;
     }
 }
