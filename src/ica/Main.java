@@ -31,6 +31,8 @@ public class Main {
 
         Portal portalTwo = new Portal("P2", portal);
 
+        System.out.printf("Portal one is connect to: %s\n", portal.getPortal().getName());
+
         System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.routingTableToString());
 
         UserAgent three = new UserAgent("Joshua", portalTwo);
@@ -40,6 +42,7 @@ public class Main {
         System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 
         /** Removing an agent requires you to make method removeAgent return null if it succeeds or return agent. */
+        System.out.println("Testing if UserAgent gets removed from routing tables.");
         three = portalTwo.removeAgent(three);
 
         /** Code below should produce a NullPointerException because we null the UserAgent "three". */
@@ -49,8 +52,7 @@ public class Main {
             System.out.println("This UserAgent does not exist.");
         }
 
-        System.out.printf("New Routing table: %s", portalTwo.routingTableToString());
-
+        System.out.printf("New Routing table: %s\n", portalTwo.routingTableToString());
 
         //one.sendMessage(two, "Hello World");
 
