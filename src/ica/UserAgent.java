@@ -13,6 +13,10 @@ public class UserAgent extends MetaAgent {
         super(name, portal);
         this.portal = portal;
         this.portal.addAgent(this);
+
+        /**
+         * TODO: Implement Runnable and check on every tick whether we are sending or receiving a message.
+         */
     }
 
     /**
@@ -22,6 +26,18 @@ public class UserAgent extends MetaAgent {
     @Override
     public void msgHandler(Message msg)
     {
+        //If we are sending a message (message sender == user agent name)
+        if (msg.getSender() == name) {
+            //If the portals routing table contains the receiver.
+            if (portal.getRoutingTable().containsKey(msg.getReceiver())) {
+
+            }
+        }
+        //If we are receiving the message
+        else if (msg.getSender() != name) {
+            System.out.printf("%s recieved message: %s. From: %s", msg.getReceiver(), msg.getContent(), msg.getSender());
+        }
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
