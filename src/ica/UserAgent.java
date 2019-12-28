@@ -16,6 +16,7 @@ public class UserAgent extends MetaAgent {
 
         /**
          * TODO: Implement Runnable and check on every tick whether we are sending or receiving a message.
+         * Finish method msgHandler.
          */
     }
 
