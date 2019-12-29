@@ -1,25 +1,22 @@
 package ica;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class MessageQueue extends ArrayBlockingQueue<Message> implements Runnable
+public class MessageQueue extends MetaAgent
 {
     private static MessageQueue msgQ;
-    //private final String name;
-    private Thread thread;
-    private volatile boolean run;
-
+    ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     private MessageQueue()
     {
-        super(100);
+        super("Queue", null);
         //this.name = name;
         //this.run = true;
 
-        start();
     }
 
     public static MessageQueue makeMsgQ()
@@ -30,39 +27,8 @@ public class MessageQueue extends ArrayBlockingQueue<Message> implements Runnabl
     }
 
 
-    private void start()
-    {
-        thread = new Thread(this);
-        thread.start();
-    }
+    @Override
+    public void msgHandler(Message msg) {
 
-    public final void stop()
-    {
-        try {
-            run = false;
-            thread.interrupt();
-            thread.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MessageQueue.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void run() {
-        while(run)
-        {
-            try {
-                msgHandler((Message) this.take());
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MessageQueue.class.getName())
-                        .log(Level.INFO, null, ex);
-            }
-        }
-
-    }
-
-    public void msgHandler(Message msg)
-    {
-        System.out.println(": " + msg.getContent());
     }
 }

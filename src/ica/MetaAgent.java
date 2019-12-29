@@ -1,59 +1,45 @@
 package ica;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-public class MetaAgent extends ArrayBlockingQueue<Message> implements Runnable {
-    String name = "";
-    Portal portal = null;
+public abstract class MetaAgent {
+    protected final String name;
+    protected Portal portal;
     private Thread thread;
-    private volatile boolean run;
+    protected final ArrayBlockingQueue<Message> msgQueue;
 
     public MetaAgent(String name, Portal portal) {
-        super(100);
+        msgQueue = new ArrayBlockingQueue<Message>(100);
         this.name = name;
         this.portal = portal;
+
+        start();
     }
 
-    private void start() {
-        thread = new Thread(this);
+    private void start()
+    {
+        thread = new Thread(() -> {
+            while (true)
+            {
+                try {
+                    msgHandler(msgQueue.take());
+                }
+                catch (InterruptedException ex) {
+                    System.out.println("Error");
+                }
+            }
+        });
         thread.start();
     }
 
-    public final void stop() {
-        try {
-            run = false;
-            thread.interrupt();
-            thread.join();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(MessageQueue.class.getName())
-                    .log(Level.WARNING, null, ex);
-        }
-    }
+    public abstract void msgHandler(Message msg);
 
+    /**
+     * toString method detailing the UserAgents name and which Portal it's connected to.
+     * @return
+     */
     @Override
-    public void run() {
-        Thread messageFling = new Thread(this);
-
-        while (run) {
-            try {
-                msgHandler(this.take());
-            } catch (InterruptedException ex) {
-                Logger.getLogger(MessageQueue.class.getName())
-                        .log(Level.INFO, null, ex);
-            }
-        }
-    }
-
-    public synchronized void msgHandler(Message msg) {
-
-        System.out.println(this.name + ": " + msg.getContent());
-
-        //Handle the messages.
-        //UserAgent r= receiver;
-        //BlockingQueue q= r.getQueue();
-        //q.add(msg);
-        //r.setQueue(q);
+    public String toString() {
+        return "Name: " + name + " | Portal: " + portal;
     }
 
     /**

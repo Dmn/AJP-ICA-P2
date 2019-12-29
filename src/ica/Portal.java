@@ -24,7 +24,6 @@ public class Portal extends MetaAgent {
             portal.setPortal(this);
             routing = portal.getRoutingTable();
         }
-
     }
 
     /**
@@ -80,19 +79,19 @@ public class Portal extends MetaAgent {
      * This happens if there is a new Agent in any of the connected portals or if there is one removed.
      * @param p Portal that needs their routing table to be updated.
      */
-    private void sync(Portal p, UserAgent a) {
+    private void sync(Portal p, boolean b) {
         if (p.portal != this) {
             HashMap<String, UserAgent> newRoutingTable = new HashMap<>();
             newRoutingTable.putAll(p.routing);
-            if (a == null) {
+            if (!b) {
                 newRoutingTable.putAll(p.portal.getRoutingTable());
                 p.routing = newRoutingTable;
                 p.portal.setRoutingTable(newRoutingTable);
-                sync(p.portal, null);
+                sync(p.portal, false);
             }
-            else if (a != null) {
+            else if (b) {
                 p.portal.setRoutingTable(newRoutingTable);
-                sync(p.portal, a);
+                sync(p.portal, true);
             }
         }
     }
@@ -107,13 +106,13 @@ public class Portal extends MetaAgent {
             Portal temp = this.portal; //P1 portal = P2
             this.portal = portal; //this.portal = P3
             portal.portal = temp; //P3 portal = P1
-            sync(this, null);
+            sync(this, false);
         }
         else
         {
             this.portal = portal;
             portal.portal = this;
-            sync(this, null);
+            sync(this, false);
         }
     }
 
@@ -123,7 +122,12 @@ public class Portal extends MetaAgent {
      */
     @Override
     public void msgHandler(Message msg) {
-        routing.get(msg.getReceiver());
+        if (routing.containsKey(msg.getReceiver())) {
+            routing.get(msg.getReceiver()).msgQueue.add(msg);
+        }
+        else {
+            System.out.println("Agent does not exist.");
+        }
     }
 
     /**
@@ -135,7 +139,7 @@ public class Portal extends MetaAgent {
         if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
             routing.put(agent.getName(), agent);
             if (portal != null)
-                sync(this, null);
+                sync(this, false);
             return true;
         }
         return false;
@@ -150,7 +154,7 @@ public class Portal extends MetaAgent {
         if (routing.containsValue(agent) && agent.getPortal() == this) {
             routing.remove(agent.getName());
             if (portal != null)
-                sync(this, agent);
+                sync(this, true);
             return null;
         }
         return agent;

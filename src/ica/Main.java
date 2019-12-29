@@ -17,6 +17,7 @@ public class Main {
          * Example below:
          */
 
+
         System.out.println("Testing adding Agents to one portal.");
 
         Portal portal = new Portal("P1", null);
@@ -40,18 +41,38 @@ public class Main {
 
         System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 
+        /**
+        Portal one = new Portal("P1", null);
+        UserAgent a1 = new UserAgent("A1", one);
+        UserAgent a2 = new UserAgent ("A2", one);
+
+
+        a1.sendMessage(new Message(a1.getName(),a2.getName(),"Hello"));
+         */
+
+        Portal portalThree = new Portal("P3", portalTwo);
+        UserAgent four = new UserAgent("A4", portalThree);
+
+        System.out.println(portal.routingTableToString());
+
         /** Removing an agent requires you to make method removeAgent return null if it succeeds or return agent. */
-        System.out.println("Testing if UserAgent gets removed from routing tables.");
-        three = portalTwo.removeAgent(three);
+        //System.out.println("Testing if UserAgent gets removed from routing tables.");
+        //three = portalTwo.removeAgent(three);
 
         /** Code below should produce a NullPointerException because we null the UserAgent "three". */
-        try {
-            System.out.printf("%s", three.toString());
-        } catch (NullPointerException ex) {
-            System.out.println("This UserAgent does not exist.");
-        }
+        //try {
+        //   System.out.printf("%s", three.toString());
+        //}
+        //catch (NullPointerException ex) {
+        //    System.out.println("This UserAgent does not exist.");
+        //}
 
-        System.out.printf("New Routing table: %s\n", portalTwo.routingTableToString());
+        one.sendMessage(new Message(one.getName(),two.getName(),"Hello A2."));
+        two.sendMessage(new Message(two.getName(),three.getName(),"Hey there Joshua."));
+
+        //System.out.printf("New Routing table: %s\n", portalTwo.routingTableToString());
+
+
 
         //one.sendMessage(two, "Hello World");
 
