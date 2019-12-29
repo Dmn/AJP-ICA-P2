@@ -15,8 +15,7 @@ public abstract class MetaAgent {
         start();
     }
 
-    private void start()
-    {
+    private void start() {
         thread = new Thread(() -> {
             while (true)
             {
