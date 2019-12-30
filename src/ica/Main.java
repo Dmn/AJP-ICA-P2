@@ -1,4 +1,7 @@
 package ica;
+
+import java.util.Vector;
+
 public class Main {
     public static void main(String[] args) {
         /**
@@ -38,6 +41,11 @@ public class Main {
         System.out.printf("Testing if Routing tables get merged: %s\n", portalTwo.routingTableToString());
 
         UserAgent three = new UserAgent("Joshua", portalTwo);
+        UserAgent four = new UserAgent("Jake", portalTwo);
+
+        Portal portalThree = new Portal("P3", portalTwo);
+
+        UserAgent five = new UserAgent("Drake", portalThree);
 
         System.out.printf("Testing if Routing tables synced when new Agent: %s\n", portal.routingTableToString());
 
@@ -49,9 +57,6 @@ public class Main {
 
         a1.sendMessage(new Message(a1.getName(),a2.getName(),"Hello"));
          */
-
-        Portal portalThree = new Portal("P3", portalTwo);
-        UserAgent four = new UserAgent("A4", portalThree);
 
         System.out.println(portal.routingTableToString());
 
@@ -67,8 +72,20 @@ public class Main {
         //    System.out.println("This UserAgent does not exist.");
         //}
 
-        one.sendMessage(new Message(one.getName(),two.getName(),"Hello A2."));
-        two.sendMessage(new Message(two.getName(),three.getName(),"Hey there Joshua."));
+        Vector<UserAgent> agents = new Vector<>();
+        agents.add(one);
+        agents.add(two);
+        agents.add(three);
+        agents.add(four);
+        agents.add(five);
+
+        //one.sendMessage(two.getName(),"Hello A2.");
+        //two.sendMessage(three.getName(),"Hey there Joshua.");
+
+        for (UserAgent i: agents) {
+            one.sendMessage(i.getName(), ("Spamming. Hello mr. " + i.getName()));
+        }
+        five.sendMessage(one.getName(), "What the hell.");
 
         //System.out.printf("New Routing table: %s\n", portalTwo.routingTableToString());
 

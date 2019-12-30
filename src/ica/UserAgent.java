@@ -21,10 +21,13 @@ public class UserAgent extends MetaAgent {
      */
     @Override
     public void msgHandler(Message msg) {
-        System.out.printf("Message received from: %s.\n Content: %s\n", msg.getSender(), msg.getContent());
+        System.out.printf("(%s) Message received from: %s.\n Content: %s\n", name, msg.getSender(), msg.getContent());
     }
 
-    public void sendMessage(Message msg) {
-        portal.msgQueue.add(msg);
+    public void sendMessage(String receiver, String message) {
+        if (name != receiver) {
+            Message msg = new Message(name, receiver, message);
+            portal.msgQueue.add(msg);
+        }
     }
 }
