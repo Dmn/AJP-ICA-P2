@@ -126,5 +126,24 @@ public class Main {
          System.out.println("Messages stopped.");
          Test
          */
+        
+        /* Socket to Socket test:
+        1st test creating two sockets and connecting them.
+        2nd test removing socket from hashmap.
+        */
+        Portal S2SPortal1= new Portal("S2SPortal1", portal);
+        Portal S2SPortal2= new Portal("S2SPortal2", portal);        
+        SocketAgent S2Sagent1 = new SocketAgent("S2Sagent1", S2SPortal1);
+        SocketAgent S2Sagent2 = new SocketAgent("S2Sagent2", S2SPortal1);
+
+        System.out.println("\n--Test 1 connecting socketAgents---\n");
+        S2Sagent1.addSocket(S2Sagent2);
+        System.out.println("The socket Agent should print 'true' if the 2nd socket agent is in the hash map");
+        S2Sagent1.checkSocket(S2Sagent2);
+        
+        System.out.println("\n---Test 2 deleting socketAgents---\n");
+        S2Sagent1.removeSocket(S2Sagent2);
+        System.out.println("If the 2nd agent is deleted from the hash map, running again should print a error 'Could not be deleted'");
+        S2Sagent1.removeSocket(S2Sagent2);
     }
 }

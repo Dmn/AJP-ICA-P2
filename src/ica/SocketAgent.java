@@ -26,6 +26,10 @@ public class SocketAgent extends MetaAgent {
         return name;
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
     // this is while loop that reads the data input and thread
     public void makeReadLoop() {
         Thread thread = new Thread(() -> {
@@ -73,9 +77,10 @@ public class SocketAgent extends MetaAgent {
     }
 
     private void removeSocket(SocketAgent partner) {
-        boolean socketDeleted;
+        boolean socketDeleted=false;
         if (socketList.containsKey(partner.getName())) {
             socketDeleted = socketList.remove(partner.getName(), partner);
+            socketDeleted=true;
         }
         if (socketDeleted == false) {
             System.out.println("Could not be deleted");
