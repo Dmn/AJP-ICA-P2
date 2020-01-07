@@ -142,6 +142,7 @@ public class Main {
         S2Sagent1.removeSocket(S2Sagent2);
         System.out.println("If the 2nd agent is deleted from the hash map, running again should print a error 'Could not be deleted'");
         S2Sagent1.removeSocket(S2Sagent2);
+<<<<<<< Upstream, based on origin/t7199384
 =======
 //        System.out.println("Testing adding Agents to one portal.");
 //
@@ -267,5 +268,7 @@ public class Main {
      A4.sendMessage("A2", "YP");
      A3.sendMessage("A1", "YP");
      A2.sendMessage("A3", "YP");
+=======
+>>>>>>> 93a0352 >Added hashmap for socket connections >Added addSocket method >Added removeSocket method >gave socket a getName to use for former methods >Added socket adding and removing to main method for testing
     }
 }

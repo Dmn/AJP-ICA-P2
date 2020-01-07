@@ -13,23 +13,19 @@ import java.util.HashMap;
  */
 // this is class method that extends to the metaagent
 public class SocketAgent extends MetaAgent {
-
+    
     private Socket socket;
     HashMap<String, SocketAgent> socketList = new HashMap<String, SocketAgent>();
     HashMap<Router,SocketAgent> routerRouting = new HashMap<>();
 
+        public SocketAgent(String name, Portal portal) {
+        super(name, portal);
+    }
+    
     public SocketAgent(String name, Portal portal, Socket socket) {
         super(name, portal);
         this.socket = socket;
         updateList();
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Socket getSocket() {
-        return socket;
     }
 
     public String getName() {
@@ -80,17 +76,23 @@ public class SocketAgent extends MetaAgent {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 */
-    private void addSocket(SocketAgent partner) {
+    public void addSocket(SocketAgent partner) {
         if (!socketList.containsKey(partner.getName())) {
             socketList.put(partner.getName(), partner);
+        } else {
+            System.out.println("Socket already in list");
         }
     }
 
-    private void removeSocket(SocketAgent partner) {
-        boolean socketDeleted=false;
+    public void checkSocket(SocketAgent partner) {
+        System.out.println(socketList.containsKey(partner.getName()));
+    }
+
+    public void removeSocket(SocketAgent partner) {
+        boolean socketDeleted = false;
         if (socketList.containsKey(partner.getName())) {
             socketDeleted = socketList.remove(partner.getName(), partner);
-            socketDeleted=true;
+            socketDeleted = true;
         }
         if (socketDeleted == false) {
             System.out.println("Could not be deleted");
