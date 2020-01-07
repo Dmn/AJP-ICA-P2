@@ -7,6 +7,12 @@ public class Portal extends MetaAgent {
      * <String> key (UserAgent name)
      * <UserAgent> Value (UserAgent object)
      */
+    private static HashMap<String,UserAgent> userAgentList = new HashMap<>();
+    private static HashMap<String,Portal> portalList = new HashMap<>();
+    
+    private HashMap<UserAgent,Portal> userPortalList = new HashMap<>();
+    private HashMap<Portal,Router> portalRouting = new HashMap<>();
+    
     private HashMap<String, UserAgent> routing;
 
     /**
@@ -17,7 +23,13 @@ public class Portal extends MetaAgent {
     public Portal(String name, Portal portal) {
         super(name, portal);
         routing = new HashMap<>();
-
+        //ZIDS
+        if(portalList.containsKey(name) == false)
+        {
+            portalList.put(name, this);
+            syncPortalList();
+        }
+        
         //Can be connected to another portal. This connects the portals routing table to this one.
         if (portal != null)
         {
@@ -30,9 +42,94 @@ public class Portal extends MetaAgent {
      * Accessor method for the routing table instance variable.
      * @return Returns the entire routing table.
      */
+
     public HashMap<String, UserAgent> getRoutingTable() {
         return routing;
     }
+    
+    /**
+     *  @Author V8117091 : This method will be called by the router, once called
+     * it will add the routing of Portal to Router, this method calls upon another
+     * method userAgentSync(). This method will also remove the routing of portal
+     * and router. This is never called by itself only the router calls this.
+     * 
+     * IF Router is added on, it will also automatically update the router's userAgentList
+     * && Routing
+     * 
+     *
+     * @param router the router that calls this will be passed on as router in
+     * this method.
+     * @param add if User wishes to remove this boolean will be false, if they
+     * want to add more then this boolean will be true.
+     */
+    public void syncPortalRouting(Router router,Boolean add)
+    {
+        if(add == true)
+        {
+            if (portalRouting.isEmpty() == true)
+            {
+                portalRouting.put(this, router);
+                router.userAgentSync(userPortalList, routing);
+            }
+            else
+            {
+                System.out.println("This portal is already connected to a router.");
+            }
+        }
+        else
+        {
+            if(portalRouting.get(this) == router)
+            {
+                portalRouting.remove(this,router);
+            }
+            else if(portalRouting.isEmpty() == true)
+            {
+                System.out.println("This portal is not connected to a router");
+            }
+            else if (portalRouting.get(this) != router)
+            {
+                System.out.println("This portal is not connected to the inputted router");
+            }
+            
+        }
+        
+    }
+        //Syncs this portal list to the Router
+
+    /**
+     * @Author V8117091 : Once a Portal is created it updates the portal list in
+     * this class and updates the router.
+     */
+        public void syncPortalList()
+        {
+            Router tempRouter = new Router(null,null);
+            tempRouter.syncPortalList(this,this.name);
+            tempRouter=null;
+        }
+        
+    /**
+     * @Author V8117091 :Just returns the portal routing.
+     * @return
+     */
+    public HashMap<Portal,Router> getPortalRouting()
+        {
+            
+            return portalRouting;
+        }
+        
+    /**
+     * @Author V8117091 : Syncs the userAgent with this portal creating a list
+     * of userAgents that are connected to this portal and creates a portal to
+     * UserAgent connection in HashMap.
+     * @param userAgentName
+     * @param userAgent
+     */
+    public void userAgentSync(String userAgentName,UserAgent userAgent)
+    {
+        routing.put(userAgentName, userAgent);
+        userPortalList.put(userAgent,this); 
+    }
+
 
     /**
      * Accessor method for the routing table instance variable toString method.
@@ -117,7 +214,10 @@ public class Portal extends MetaAgent {
     }
 
     /**
-     * Routes messages being sent from one UserAgent to the receiving UserAgent.
+     * @Author Jason: Routes messages being sent from one UserAgent to the receiving UserAgent.
+     * @Author V8117091 : Added a Message handeler that, if userAgent is not
+     * within the portal it will forward it to the router and router will direct
+     * it to the appropriate portal where the UserAgent is located.
      * @param msg Message contains the Content, Sender and Receiver of the message.
      */
     @Override
@@ -125,10 +225,16 @@ public class Portal extends MetaAgent {
         if (routing.containsKey(msg.getReceiver())) {
             routing.get(msg.getReceiver()).msgQueue.add(msg);
         }
-        else {
-            System.out.println("Agent does not exist.");
+        else if(routing.containsKey(msg.getReceiver())== false && portalRouting.isEmpty() == false)
+        {
+            portalRouting.get(this).msgHandler(msg);
+        }
+        else
+        {
+            System.out.println("Agent not found");
         }
     }
+    
 
     /**
      * Adds UserAgents to the Portals routing table.
