@@ -100,10 +100,10 @@ public class Router extends MetaAgent {
      */
     public void addSocket(String socketName)
     {
-        if(socketList.containsKey(socketName)==true)
+        if(socketList.containsKey(socketName)==true && routerRouting.isEmpty() ==  true)
         {
             routerRouting.put(this, socketList.get(socketName));
-            socketList.get(socketName).routerConnect(this);
+            socketList.get(socketName).addRouterSync(this);
         } 
     }
     
@@ -113,7 +113,11 @@ public class Router extends MetaAgent {
      */
     public void removeSocket(String socketName)
     {
-        
+        if(socketList.containsKey(socketName) == true && routerRouting.get(this) == socketList.get(socketName))
+        {
+            routerRouting.remove(this,socketList.get(socketName));
+            socketList.get(socketName).removeRouterSync(this);
+        }
     }
     
     public void socketSync(SocketAgent socket, String socketName)
@@ -214,5 +218,12 @@ public class Router extends MetaAgent {
             }
  
         }
+        public HashMap<Router,SocketAgent> getRouting()
+    {
+        
+        return this.routerRouting;
+    }
+        
+
     }
 
