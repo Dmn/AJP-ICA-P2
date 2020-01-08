@@ -10,33 +10,60 @@ import java.util.HashMap;
 /**
  *
  * @author t7082305
+ * @author Ashley Hood T7199384
  */
 // this is class method that extends to the metaagent
 public class SocketAgent extends MetaAgent {
-    
+
     private Socket socket;
     HashMap<String, SocketAgent> socketList = new HashMap<String, SocketAgent>();
-    HashMap<Router,SocketAgent> routerRouting = new HashMap<>();
+    HashMap<Router, SocketAgent> routerRouting = new HashMap<>();
 
-        public SocketAgent(String name, Portal portal) {
+    /**
+     * Constructs a SocketAgent.
+     *
+     * @param name Used for the key to find the SocketAgent.
+     * @param portal The address of the portal this agent is connected to.
+     */
+    public SocketAgent(String name, Portal portal) {
         super(name, portal);
     }
-    
+
+    /**
+     * Constructs a SocketAgent.
+     *
+     * @param name Used for the key to find the SocketAgent.
+     * @param portal The address of the portal this agent is connected to.
+     * @param socket A socket class.
+     */
     public SocketAgent(String name, Portal portal, Socket socket) {
         super(name, portal);
         this.socket = socket;
         updateList();
     }
 
+    /**
+     * Gets the name of SocketAgent.
+     *
+     * @return The name of the SocketAgent class.
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets the socket class in SocketAgent class.
+     *
+     * @return The socket class.
+     */
     public Socket getSocket() {
         return socket;
     }
 
-    // this is while loop that reads the data input and thread
+    /**
+     * Creates a thread for messages to go through in real time.
+     *
+     */
     public void makeReadLoop() {
         Thread thread = new Thread(() -> {
             try {
@@ -52,12 +79,22 @@ public class SocketAgent extends MetaAgent {
         thread.start();
     }
 
+    /**
+     * Puts a message into a Message class.
+     *
+     * @param input Text to put in a Message class.
+     * @return The string contained in a Message class.
+     */
     private Message textToMsg(String input) {
         return new Message("socket", "portal", input);
     }
 
     @Override
-    // this is method  msgHandler if message has error or not
+    /**
+     * Watches the thread and catches errors.
+     *
+     * @param msg A system message.
+     */
     public void msgHandler(Message msg) {
         try {
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -66,16 +103,22 @@ public class SocketAgent extends MetaAgent {
             System.out.println("Error");
         }
     }
-// this is the msgtotext that has content
 
+    /**
+     * Gets the text from within the message class..
+     *
+     * @param msg A system message.
+     * @return The string in the message.
+     */
     private String msgToText(Message msg) {
         return msg.getContent();
     }
-/*
-    void routerConnect(Router aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-*/
+
+    /**
+     * Add the socket passed through to this routing table .
+     *
+     * @param partner The socket to be added to the routing table.
+     */
     public void addSocket(SocketAgent partner) {
         if (!socketList.containsKey(partner.getName())) {
             socketList.put(partner.getName(), partner);
@@ -84,10 +127,22 @@ public class SocketAgent extends MetaAgent {
         }
     }
 
+    /**
+     * Checks the socket passed through is in the routing table by finding the
+     * key.
+     *
+     * @param partner The socket to be added to the routing table.
+     */
     public void checkSocket(SocketAgent partner) {
         System.out.println(socketList.containsKey(partner.getName()));
     }
 
+    /**
+     * Removes the socket passed through is in the routing table by finding the
+     * key and clearing it.
+     *
+     * @param partner The socket to be added to the routing table.
+     */
     public void removeSocket(SocketAgent partner) {
         boolean socketDeleted = false;
         if (socketList.containsKey(partner.getName())) {
@@ -99,26 +154,22 @@ public class SocketAgent extends MetaAgent {
         }
     }
 
-    public void updateList()
-    {
-        Router tempRouter = new Router(null,null);
+    public void updateList() {
+        Router tempRouter = new Router(null, null);
         this.socketList.put(this.name, this);
         tempRouter.socketSync(this, name);
     }
-    
-    public void addRouterSync(Router router)
-    {
-        this.routerRouting.put(router, this);   
+
+    public void addRouterSync(Router router) {
+        this.routerRouting.put(router, this);
     }
-    
-    public void removeRouterSync(Router router)
-    {
-        this.routerRouting.remove(router,this);
+
+    public void removeRouterSync(Router router) {
+        this.routerRouting.remove(router, this);
     }
-    
-    public HashMap<Router,SocketAgent> getRouting()
-    {
-        
+
+    public HashMap<Router, SocketAgent> getRouting() {
+
         return this.routerRouting;
     }
 }
