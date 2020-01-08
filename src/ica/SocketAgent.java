@@ -32,6 +32,14 @@ public class SocketAgent extends MetaAgent {
         return socket;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
     // this is while loop that reads the data input and thread
     public void makeReadLoop() {
         Thread thread = new Thread(() -> {
@@ -88,15 +96,13 @@ public class SocketAgent extends MetaAgent {
             System.out.println("Could not be deleted");
         }
     }
-    
+
     public void updateList()
     {
         Router tempRouter = new Router(null,null);
         this.socketList.put(this.name, this);
         tempRouter.socketSync(this, name);
     }
-    
-    
     
     public void addRouterSync(Router router)
     {
