@@ -16,10 +16,20 @@ public class SocketAgent extends MetaAgent {
 
     private Socket socket;
     HashMap<String, SocketAgent> socketList = new HashMap<String, SocketAgent>();
+    HashMap<Router,SocketAgent> routerRouting = new HashMap<>();
 
     public SocketAgent(String name, Portal portal, Socket socket) {
         super(name, portal);
         this.socket = socket;
+        updateList();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Socket getSocket() {
+        return socket;
     }
 
     public String getName() {
@@ -85,5 +95,28 @@ public class SocketAgent extends MetaAgent {
         if (socketDeleted == false) {
             System.out.println("Could not be deleted");
         }
+    }
+
+    public void updateList()
+    {
+        Router tempRouter = new Router(null,null);
+        this.socketList.put(this.name, this);
+        tempRouter.socketSync(this, name);
+    }
+    
+    public void addRouterSync(Router router)
+    {
+        this.routerRouting.put(router, this);   
+    }
+    
+    public void removeRouterSync(Router router)
+    {
+        this.routerRouting.remove(router,this);
+    }
+    
+    public HashMap<Router,SocketAgent> getRouting()
+    {
+        
+        return this.routerRouting;
     }
 }

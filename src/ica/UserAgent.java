@@ -1,4 +1,7 @@
 package ica;
+
+import java.util.HashMap;
+
 public class UserAgent extends MetaAgent {
 
     private final Portal portal; /** Portal should never change */
@@ -13,6 +16,7 @@ public class UserAgent extends MetaAgent {
         super(name, portal);
         this.portal = portal;
         this.portal.addAgent(this);
+        userAgentSync();
     }
 
     /**
@@ -22,6 +26,14 @@ public class UserAgent extends MetaAgent {
     @Override
     public void msgHandler(Message msg) {
         System.out.printf("(%s) Message received from: %s.\n Content: %s\n", name, msg.getSender(), msg.getContent());
+    }
+    
+    /**
+     * @Author V8117091 : UserAgentSync() forwards the userAgent and String Name
+     */
+    public void userAgentSync()
+    {
+        this.portal.userAgentSync(this.name, this);
     }
 
     public void sendMessage(String receiver, String message) {
