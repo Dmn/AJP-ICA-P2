@@ -17,7 +17,7 @@ import org.junit.Ignore;
 public class PortalTest {
     
     /**
-     *
+     * Portal test.
      */
     public PortalTest() {
     }

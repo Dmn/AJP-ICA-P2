@@ -16,7 +16,7 @@ import org.junit.Ignore;
 public class UserAgentTest {
     
     /**
-     *
+     * UserAgent test.
      */
     public UserAgentTest() {
     }

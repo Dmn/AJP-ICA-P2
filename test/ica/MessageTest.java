@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 public class MessageTest {
     
     /**
-     *
+     * test for message.
      */
     public MessageTest() {
     }

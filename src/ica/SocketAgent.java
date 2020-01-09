@@ -8,10 +8,10 @@ import java.net.Socket;
 import java.util.HashMap;
 
 /**
- *
+ * this is class method that extends to the metaAgent
  * @author t7082305
  */
-// this is class method that extends to the metaagent
+
 public class SocketAgent extends MetaAgent {
 
     private Socket socket;
@@ -20,9 +20,9 @@ public class SocketAgent extends MetaAgent {
 
     /**
      *
-     * @param name
-     * @param portal
-     * @param socket
+     * @param name socketAgent name.
+     * @param portal Actual portal.
+     * @param socket Actual socket.
      */
     public SocketAgent(String name, Portal portal, Socket socket) {
         super(name, portal);
@@ -35,17 +35,16 @@ public class SocketAgent extends MetaAgent {
     }
 
     /**
-     *
+     * gets the socket.
      * @return
      */
     public Socket getSocket() {
         return socket;
     }
-
-    // this is while loop that reads the data input and thread
+ 
 
     /**
-     *
+     * this is while loop that reads the data input and thread
      */
     public void makeReadLoop() {
         Thread thread = new Thread(() -> {
@@ -67,11 +66,10 @@ public class SocketAgent extends MetaAgent {
     }
 
     /**
-     *
+     * this is method  msgHandler if message has error or not
      * @param msg
      */
     @Override
-    // this is method  msgHandler if message has error or not
     public void msgHandler(Message msg) {
         try {
             DataOutputStream dataOutputStream = new DataOutputStream(socket.getOutputStream());
@@ -118,7 +116,7 @@ public class SocketAgent extends MetaAgent {
     }
 
     /**
-     *
+     * updates the list.
      */
     public void updateList()
     {
@@ -128,7 +126,7 @@ public class SocketAgent extends MetaAgent {
     }
     
     /**
-     *
+     * addsRouterSync.
      * @param router
      */
     public void addRouterSync(Router router)
