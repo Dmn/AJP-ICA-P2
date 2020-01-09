@@ -1,10 +1,6 @@
 package ica;
 import java.util.HashMap;
 
-/**
- *
- * @author v8039087
- */
 public class Portal extends MetaAgent {
     /**
      * Hashmap containing:
@@ -52,12 +48,13 @@ public class Portal extends MetaAgent {
     }
     
     /**
-     * Author V8117091 : This method will be called by the router, once called
+     *  Author V8117091 : This method will be called by the router, once called
      * it will add the routing of Portal to Router, this method calls upon another
      * method userAgentSync(). This method will also remove the routing of portal
      * and router. This is never called by itself only the router calls this.
      * 
-     * If Router is added on, it will also automatically update the routers userAgentList and Routing
+     * IF Router is added on, it will also automatically update the router's userAgentList
+     * && Routing to this portal.
      * 
      *
      * @param router the router that calls this will be passed on as router in
@@ -112,7 +109,7 @@ public class Portal extends MetaAgent {
         
     /**
      * Author V8117091 :Just returns the portal routing.
-     * @return portalRouting.
+     * @return
      */
     public HashMap<Portal,Router> getPortalRouting()
         {
@@ -121,11 +118,11 @@ public class Portal extends MetaAgent {
         }
         
     /**
-     * Author V8117091 : Sync the userAgent with this portal creating a list
+     * Author V8117091 : Syncs the userAgent with this portal creating a list
      * of userAgents that are connected to this portal and creates a portal to
      * UserAgent connection in HashMap.
-     * @param userAgentName userAgent name.
-     * @param userAgent actual userAgent.
+     * @param userAgentName
+     * @param userAgent
      */
     public void userAgentSync(String userAgentName,UserAgent userAgent)
     {
@@ -145,8 +142,8 @@ public class Portal extends MetaAgent {
 
     /**
      * Mutator method for the instance variable routing table.
-     * Only triggered when synchronising routing tables.
-     * @param routing HashMap routing table containing String name and UserAgent routing.
+     * Only triggered when synchronizing routing tables.
+     * @param routing HashMap routing table containing <String> name and <UserAgent> routing.
      */
     public void setRoutingTable(HashMap<String, UserAgent> routing) {
         this.routing = routing;
@@ -220,7 +217,8 @@ public class Portal extends MetaAgent {
      * Author Jason: Routes messages being sent from one UserAgent to the receiving UserAgent.
      * Author V8117091 : Added a Message handeler that, if userAgent is not
      * within the portal it will forward it to the router and router will direct
-     * it to the appropriate portal where the UserAgent is located.
+     * it to the appropriate portal where the UserAgent is located. If userAgent doesn't exist
+     * it will send a message that userAgent doesn't exist on router side.
      * @param msg Message contains the Content, Sender and Receiver of the message.
      */
     @Override
@@ -240,32 +238,56 @@ public class Portal extends MetaAgent {
     
 
     /**
-     * Adds UserAgents to the Portals routing table.
+     * Author Jason: Adds UserAgents to the Portals routing table.
+     * Author v8117091: added a if statement to check if theres a router to socket
+     * connection and if their is will syncs the userAgentSync by adding it to the router side
+     * and add a connection.
      * @param agent UserAgent being passed in. Allows adding to the routing table.
      * @return True/False if the UserAgent was successfully added.
      */
     public boolean addAgent(UserAgent agent) {
         if (!routing.containsKey(agent.getName()) && agent.getPortal() == this) {
             routing.put(agent.getName(), agent);
-            if (portal != null)
+            if (portal != null){
                 sync(this, false);
             return true;
+            }
+            if(portalRouting.isEmpty()==false)
+            {
+                portalRouting.get(this).userAgentSync(agent, this, true);
+            }
+            
         }
         return false;
     }
 
     /**
-     * Removes UserAgents from the Portals routing table.
+     * Author Jason: Removes UserAgents from the Portals routing table.
+     * Author v8117091: added an if statement to check if its connected to router
+     * if it is will remove the useragent-portal routing from router.
      * @param agent UserAgent being passed in. Allows removing from the routing table.
      * @return Returns null if UserAgent was removed and this value is assigned to the UserAgent itself. Or returns itself if fails.
      */
     public UserAgent removeAgent(UserAgent agent) {
         if (routing.containsValue(agent) && agent.getPortal() == this) {
             routing.remove(agent.getName());
-            if (portal != null)
+            if (portal != null){
                 sync(this, true);
+                
+
             return null;
+            }
+                        if(portalRouting.isEmpty()== false)
+                {
+                    portalRouting.get(this).userAgentSync(agent, this, false);
+                }    
+
         }
         return agent;
+    }
+        
+        public HashMap<UserAgent,Portal> getUserAgentRoutings()
+    {
+        return this.userPortalList;
     }
 }
