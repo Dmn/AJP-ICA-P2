@@ -116,7 +116,9 @@ public class SocketAgent extends MetaAgent {
     }
 
     /**
-     * updates the list.
+     * Author v8117091: Creates an instance of tempRouter, and adds it to the 
+     * router's static HashMap of sockets lists.
+     * 
      */
     public void updateList()
     {
@@ -126,7 +128,8 @@ public class SocketAgent extends MetaAgent {
     }
     
     /**
-     * addsRouterSync.
+     * Author v8117091: Called by the router, once addSocket() is called in the router
+     * it calls this socket and adding it from the socket side.
      * @param router
      */
     public void addRouterSync(Router router)
@@ -135,8 +138,10 @@ public class SocketAgent extends MetaAgent {
     }
     
     /**
-     *
-     * @param router
+     * Author v8117091: Called by a router, once removeSocket() is called in the
+     * router, it calls this socket method thus removing it from the socket side.
+     * 
+     * @param router - the router you wish to remove
      */
     public void removeRouterSync(Router router)
     {
@@ -144,7 +149,8 @@ public class SocketAgent extends MetaAgent {
     }
     
     /**
-     *
+     * Author v8117091: returns the router - socket connection of this specfic
+     * socket.
      * @return
      */
     public HashMap<Router,SocketAgent> getRouting()
