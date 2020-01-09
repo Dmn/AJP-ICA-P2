@@ -18,6 +18,9 @@ import static org.junit.Assert.*;
  */
 public class SocketAgentTest {
     
+    /**
+     *
+     */
     public SocketAgentTest() {
     }
     

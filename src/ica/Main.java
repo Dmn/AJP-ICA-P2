@@ -3,7 +3,16 @@ package ica;
 import java.net.Socket;
 import java.util.Vector;
 
+/**
+ *
+ * @author v8039087
+ */
 public class Main {
+
+    /**
+     *
+     * @param args
+     */
     public static void main(String[] args) {
         /**
          * TODO:

@@ -1,4 +1,9 @@
 package ica;
+
+/**
+ *
+ * @author v8039087
+ */
 public class Message
 {
     private final String sender, receiver, content;

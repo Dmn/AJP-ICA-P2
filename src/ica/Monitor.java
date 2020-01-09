@@ -62,7 +62,7 @@ public abstract class Monitor extends MetaAgent {
     
     /**
      * should display the message.
-     * @param msg
+     * @param msg displays the message.
      */
     @Override
     public void msgHandler(Message msg) {

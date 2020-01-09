@@ -3,8 +3,15 @@ package ica;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ *
+ * @author v8039087
+ */
 public class MessageTest {
     
+    /**
+     *
+     */
     public MessageTest() {
     }
 

@@ -18,6 +18,12 @@ public class SocketAgent extends MetaAgent {
     HashMap<String, SocketAgent> socketList = new HashMap<String, SocketAgent>();
     HashMap<Router,SocketAgent> routerRouting = new HashMap<>();
 
+    /**
+     *
+     * @param name
+     * @param portal
+     * @param socket
+     */
     public SocketAgent(String name, Portal portal, Socket socket) {
         super(name, portal);
         this.socket = socket;
@@ -28,11 +34,19 @@ public class SocketAgent extends MetaAgent {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public Socket getSocket() {
         return socket;
     }
 
     // this is while loop that reads the data input and thread
+
+    /**
+     *
+     */
     public void makeReadLoop() {
         Thread thread = new Thread(() -> {
             try {
@@ -52,6 +66,10 @@ public class SocketAgent extends MetaAgent {
         return new Message("socket", "portal", input);
     }
 
+    /**
+     *
+     * @param msg
+     */
     @Override
     // this is method  msgHandler if message has error or not
     public void msgHandler(Message msg) {
@@ -72,12 +90,22 @@ public class SocketAgent extends MetaAgent {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 */
+
+    /**
+     *
+     * @param partner
+     */
+
     public void addSocket(SocketAgent partner) {
         if (!socketList.containsKey(partner.getName())) {
             socketList.put(partner.getName(), partner);
         }
     }
 
+    /**
+     *
+     * @param partner
+     */
     public void removeSocket(SocketAgent partner) {
         boolean socketDeleted=false;
         if (socketList.containsKey(partner.getName())) {
@@ -89,6 +117,9 @@ public class SocketAgent extends MetaAgent {
         }
     }
 
+    /**
+     *
+     */
     public void updateList()
     {
         Router tempRouter = new Router(null,null);
@@ -96,16 +127,28 @@ public class SocketAgent extends MetaAgent {
         tempRouter.socketSync(this, name);
     }
     
+    /**
+     *
+     * @param router
+     */
     public void addRouterSync(Router router)
     {
         this.routerRouting.put(router, this);   
     }
     
+    /**
+     *
+     * @param router
+     */
     public void removeRouterSync(Router router)
     {
         this.routerRouting.remove(router,this);
     }
     
+    /**
+     *
+     * @return
+     */
     public HashMap<Router,SocketAgent> getRouting()
     {
         

@@ -5,7 +5,10 @@ import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**
+ *
+ * @author v8039087
+ */
 public class MessageQueue extends MetaAgent
 {
     private static MessageQueue msgQ;
@@ -19,6 +22,10 @@ public class MessageQueue extends MetaAgent
 
     }
 
+    /**
+     *
+     * @return
+     */
     public static MessageQueue makeMsgQ()
     {
         if (msgQ == null)
@@ -26,7 +33,10 @@ public class MessageQueue extends MetaAgent
         return msgQ;
     }
 
-
+    /**
+     *
+     * @param msg
+     */
     @Override
     public void msgHandler(Message msg) {
 

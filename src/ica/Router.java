@@ -28,8 +28,8 @@ public class Router extends MetaAgent {
     
     /**
      *
-     * @param routerName
-     * @param portal
+     * @param routerName router name.
+     * @param portal actual portal.
      */
     public Router(String routerName, Portal portal)
     {
@@ -38,7 +38,7 @@ public class Router extends MetaAgent {
 
     /**
      *
-     * @param portalName
+     * @param portalName portal name.
      */
     public void addPortal(String portalName)
     {
@@ -55,7 +55,7 @@ public class Router extends MetaAgent {
         
     /**
      *
-     * @param portalName
+     * @param portalName portal name.
      */
     public void removePortal(String portalName)
     {
@@ -74,7 +74,7 @@ public class Router extends MetaAgent {
     /**
      * Gets an ArrayList of all UserAgents that are connected to this router
      * 
-     * @param portal
+     * @param portal actual portal.
      * @return returns an ArrayList of all users inside the portal a specfic portal.
      */
     public ArrayList<UserAgent> findUserAgentPortal(Portal portal)
@@ -109,7 +109,7 @@ public class Router extends MetaAgent {
     
     /**
      *
-     * @param socketName
+     * @param socketName socket name.
      */
     public void removeSocket(String socketName)
     {
@@ -120,6 +120,11 @@ public class Router extends MetaAgent {
         }
     }
     
+    /**
+     *
+     * @param socket
+     * @param socketName
+     */
     public void socketSync(SocketAgent socket, String socketName)
     {
         this.socketList.put(socketName,socket);
@@ -128,8 +133,8 @@ public class Router extends MetaAgent {
     
     /**
      *
-     * @param portal
-     * @param portalName
+     * @param portal actual portal.
+     * @param portalName portal name.
      */
     public void syncPortalList(Portal portal,String portalName)
     {
@@ -138,7 +143,7 @@ public class Router extends MetaAgent {
     
     /**
      *
-     * @return
+     * @return portalRouting.
      */
     public HashMap<Portal,Router> getPortalRouting()
     {
@@ -147,8 +152,8 @@ public class Router extends MetaAgent {
       
     /**
      * Returns an ArrayList of Portal 
-     * @param portal
-     * @return
+     * @param portal actual portal.
+     * @return portalLists.
      */
     public ArrayList<Portal> getRouterLists(Portal portal)
     {
@@ -171,7 +176,7 @@ public class Router extends MetaAgent {
 
     /**
      *
-     * @return
+     * @return portalListSpecficRouter
      */
     public ArrayList<Portal> getRouterPortalList()
     {
@@ -194,8 +199,8 @@ public class Router extends MetaAgent {
 
     /**
      *
-     * @param userAgentConnection
-     * @param userAgentLists
+     * @param userAgentConnection userAgent connection.
+     * @param userAgentLists UserAgent lists.
      */
     public void userAgentSync(HashMap<UserAgent,Portal> userAgentConnection,HashMap<String,UserAgent> userAgentLists)
     {
@@ -205,7 +210,7 @@ public class Router extends MetaAgent {
     
     /**
      *
-     * @param msg
+     * @param msg the actual message.
      */
     @Override
     public void msgHandler(Message msg) {
@@ -218,7 +223,12 @@ public class Router extends MetaAgent {
             }
  
         }
-        public HashMap<Router,SocketAgent> getRouting()
+
+    /**
+     *
+     * @return
+     */
+    public HashMap<Router,SocketAgent> getRouting()
     {
         
         return this.routerRouting;

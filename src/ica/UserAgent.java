@@ -2,6 +2,10 @@ package ica;
 
 import java.util.HashMap;
 
+/**
+ *
+ * @author v8039087
+ */
 public class UserAgent extends MetaAgent {
 
     private final Portal portal; /** Portal should never change */
@@ -29,13 +33,18 @@ public class UserAgent extends MetaAgent {
     }
     
     /**
-     * @Author V8117091 : UserAgentSync() forwards the userAgent and String Name
+     * Author V8117091 : UserAgentSync() forwards the userAgent and String Name
      */
     public void userAgentSync()
     {
         this.portal.userAgentSync(this.name, this);
     }
 
+    /**
+     *
+     * @param receiver
+     * @param message
+     */
     public void sendMessage(String receiver, String message) {
         if (name != receiver) {
             Message msg = new Message(name, receiver, message);

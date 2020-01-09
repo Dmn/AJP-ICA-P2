@@ -1,12 +1,33 @@
 package ica;
 import java.util.concurrent.ArrayBlockingQueue;
 
+/**
+ *
+ * @author v8039087
+ */
 public abstract class MetaAgent {
+
+    /**
+     *
+     */
     protected final String name;
+
+    /**
+     *
+     */
     protected Portal portal;
     private Thread thread;
+
+    /**
+     *
+     */
     protected final ArrayBlockingQueue<Message> msgQueue;
 
+    /**
+     *
+     * @param name
+     * @param portal
+     */
     public MetaAgent(String name, Portal portal) {
         msgQueue = new ArrayBlockingQueue<Message>(100);
         this.name = name;
@@ -30,11 +51,15 @@ public abstract class MetaAgent {
         thread.start();
     }
 
+    /**
+     *
+     * @param msg
+     */
     public abstract void msgHandler(Message msg);
 
     /**
      * toString method detailing the UserAgents name and which Portal it's connected to.
-     * @return
+     * @return name, portal.
      */
     @Override
     public String toString() {

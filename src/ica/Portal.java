@@ -1,6 +1,10 @@
 package ica;
 import java.util.HashMap;
 
+/**
+ *
+ * @author v8039087
+ */
 public class Portal extends MetaAgent {
     /**
      * Hashmap containing:
@@ -48,13 +52,12 @@ public class Portal extends MetaAgent {
     }
     
     /**
-     *  @Author V8117091 : This method will be called by the router, once called
+     * Author V8117091 : This method will be called by the router, once called
      * it will add the routing of Portal to Router, this method calls upon another
      * method userAgentSync(). This method will also remove the routing of portal
      * and router. This is never called by itself only the router calls this.
      * 
-     * IF Router is added on, it will also automatically update the router's userAgentList
-     * && Routing
+     * If Router is added on, it will also automatically update the routers userAgentList and Routing
      * 
      *
      * @param router the router that calls this will be passed on as router in
@@ -97,7 +100,7 @@ public class Portal extends MetaAgent {
         //Syncs this portal list to the Router
 
     /**
-     * @Author V8117091 : Once a Portal is created it updates the portal list in
+     * Author V8117091 : Once a Portal is created it updates the portal list in
      * this class and updates the router.
      */
         public void syncPortalList()
@@ -108,8 +111,8 @@ public class Portal extends MetaAgent {
         }
         
     /**
-     * @Author V8117091 :Just returns the portal routing.
-     * @return
+     * Author V8117091 :Just returns the portal routing.
+     * @return portalRouting.
      */
     public HashMap<Portal,Router> getPortalRouting()
         {
@@ -118,11 +121,11 @@ public class Portal extends MetaAgent {
         }
         
     /**
-     * @Author V8117091 : Syncs the userAgent with this portal creating a list
+     * Author V8117091 : Sync the userAgent with this portal creating a list
      * of userAgents that are connected to this portal and creates a portal to
      * UserAgent connection in HashMap.
-     * @param userAgentName
-     * @param userAgent
+     * @param userAgentName userAgent name.
+     * @param userAgent actual userAgent.
      */
     public void userAgentSync(String userAgentName,UserAgent userAgent)
     {
@@ -142,8 +145,8 @@ public class Portal extends MetaAgent {
 
     /**
      * Mutator method for the instance variable routing table.
-     * Only triggered when synchronizing routing tables.
-     * @param routing HashMap routing table containing <String> name and <UserAgent> routing.
+     * Only triggered when synchronising routing tables.
+     * @param routing HashMap routing table containing String name and UserAgent routing.
      */
     public void setRoutingTable(HashMap<String, UserAgent> routing) {
         this.routing = routing;
@@ -214,8 +217,8 @@ public class Portal extends MetaAgent {
     }
 
     /**
-     * @Author Jason: Routes messages being sent from one UserAgent to the receiving UserAgent.
-     * @Author V8117091 : Added a Message handeler that, if userAgent is not
+     * Author Jason: Routes messages being sent from one UserAgent to the receiving UserAgent.
+     * Author V8117091 : Added a Message handeler that, if userAgent is not
      * within the portal it will forward it to the router and router will direct
      * it to the appropriate portal where the UserAgent is located.
      * @param msg Message contains the Content, Sender and Receiver of the message.
