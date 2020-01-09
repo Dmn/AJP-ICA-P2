@@ -32,14 +32,6 @@ public class SocketAgent extends MetaAgent {
         return socket;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public Socket getSocket() {
-        return socket;
-    }
-
     // this is while loop that reads the data input and thread
     public void makeReadLoop() {
         Thread thread = new Thread(() -> {
@@ -80,13 +72,13 @@ public class SocketAgent extends MetaAgent {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 */
-    private void addSocket(SocketAgent partner) {
+    public void addSocket(SocketAgent partner) {
         if (!socketList.containsKey(partner.getName())) {
             socketList.put(partner.getName(), partner);
         }
     }
 
-    private void removeSocket(SocketAgent partner) {
+    public void removeSocket(SocketAgent partner) {
         boolean socketDeleted=false;
         if (socketList.containsKey(partner.getName())) {
             socketDeleted = socketList.remove(partner.getName(), partner);

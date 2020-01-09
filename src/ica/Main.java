@@ -1,5 +1,6 @@
 package ica;
 
+import java.net.Socket;
 import java.util.Vector;
 
 public class Main {
@@ -129,20 +130,23 @@ public class Main {
         2nd test removing socket from hashmap.
         */
         Portal S2SPortal1= new Portal("S2SPortal1", portal);
-        Portal S2SPortal2= new Portal("S2SPortal2", portal);        
-        SocketAgent S2Sagent1 = new SocketAgent("S2Sagent1", S2SPortal1);
-        SocketAgent S2Sagent2 = new SocketAgent("S2Sagent2", S2SPortal1);
+        Portal S2SPortal2= new Portal("S2SPortal2", portal);   
+        Socket socket1 = new Socket();
+        Socket socket2 = new Socket();
+
+        SocketAgent S2Sagent1 = new SocketAgent("S2Sagent1", S2SPortal1, socket1);
+        SocketAgent S2Sagent2 = new SocketAgent("S2Sagent2", S2SPortal2, socket2);
 
         System.out.println("\n--Test 1 connecting socketAgents---\n");
         S2Sagent1.addSocket(S2Sagent2);
         System.out.println("The socket Agent should print 'true' if the 2nd socket agent is in the hash map");
-        S2Sagent1.checkSocket(S2Sagent2);
+   //     S2Sagent1.checkSocket(S2Sagent2);
         
         System.out.println("\n---Test 2 deleting socketAgents---\n");
         S2Sagent1.removeSocket(S2Sagent2);
         System.out.println("If the 2nd agent is deleted from the hash map, running again should print a error 'Could not be deleted'");
         S2Sagent1.removeSocket(S2Sagent2);
-=======
+
 //        System.out.println("Testing adding Agents to one portal.");
 //
 //        Portal portal = new Portal("P1", null);
